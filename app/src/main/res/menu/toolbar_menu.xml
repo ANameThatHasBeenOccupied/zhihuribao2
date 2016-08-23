@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ContentActivity">
+    <item
+        android:id="@+id/action_login"
+        android:icon="@mipmap/ic_drawer_am"
+        android:orderInCategory="100"
+        android:title="Login"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_settiong"
+        android:orderInCategory="100"
+        android:title="action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_night"
+        android:orderInCategory="100"
+        android:title="Night"
+        app:showAsAction="never"></item>
+</menu>
