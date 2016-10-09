@@ -38,6 +38,7 @@ public abstract class BaseProtocol<T> {
      * 4.获取到json不为空，解析json数据
      */
     public T loadData() {
+        LogUtils.e("protocol load data!!");
         String json = loadDataFromLocal();
         if (json == null) {
             LogUtils.e("从服务器获取json");
@@ -59,7 +60,7 @@ public abstract class BaseProtocol<T> {
     private String loadDataFromLocal() {
         File dir = FileUtils.getCacheDir();
         File file = new File(dir, getCacheDir());
-
+        LogUtils.e("loadDataFromLocal = " + file.getAbsolutePath().toString());
         try {
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
@@ -82,12 +83,12 @@ public abstract class BaseProtocol<T> {
         }
         return null;
     }
-
+    //把数据保存到本地
     private void saveDataToLocal(String json) {
-        LogUtils.i("保存到本地");
         //第一行写时间，然后保存起来
         File dir = FileUtils.getCacheDir();
         File file = new File(dir, getCacheDir());
+        LogUtils.e("saveDataToLocal = " + file.getAbsolutePath().toString());
         BufferedWriter bw = null;
         try {
             FileWriter fw = new FileWriter(file);
@@ -102,8 +103,8 @@ public abstract class BaseProtocol<T> {
             e.printStackTrace();
         }
     }
-
-    private String loadDataFromServer() {
+    //从服务器加载数据
+    protected String loadDataFromServer() {
         String result = null;
         Request request = new Request.Builder().url(getUrl()).build();
         Response response = null;
@@ -119,6 +120,4 @@ public abstract class BaseProtocol<T> {
         }
         return null;
     }
-
-
 }

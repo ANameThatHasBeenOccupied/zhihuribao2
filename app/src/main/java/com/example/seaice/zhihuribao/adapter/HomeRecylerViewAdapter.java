@@ -8,15 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.seaice.zhihuribao.HomePagerClickListener;
 import com.example.seaice.zhihuribao.R;
 import com.example.seaice.zhihuribao.Utils.BaseApplication;
+import com.example.seaice.zhihuribao.Utils.LogUtils;
 import com.example.seaice.zhihuribao.bean.HomeInfo;
 import com.example.seaice.zhihuribao.bean.HomeStoriesInfo;
 import com.example.seaice.zhihuribao.bean.HomeTopInfo;
 import com.example.seaice.zhihuribao.view.CircleIndicator;
 import com.squareup.picasso.Picasso;
+
 import java.util.List;
+
 import butterknife.ButterKnife;
+
 /**
  * Created by seaice on 2016/8/22.
  */
@@ -24,11 +29,14 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_DATE = 2;
+
     private LayoutInflater mInflate;
     private Context mContext;
     private List<HomeStoriesInfo> homeStoriesInfos;
     private List<HomeTopInfo> homeTopInfos;
     private HomeInfo homeInfo;
+    private HomePagerClickListener mListener;
+
     private boolean isTouchViewPager = false;
     private boolean isViewPagerLoop = false;
 
@@ -42,20 +50,21 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         homeTopInfos = homeInfo.getHomeTopInfoList();
         mContext = BaseApplication.getApplication();
         mInflate = LayoutInflater.from(mContext);
+        LogUtils.e(homeStoriesInfos.toString());
     }
 
     //绑定不同类型Holder
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if (viewType == TYPE_HEADER) {
+        if (viewType == TYPE_HEADER) {//view pager
             View view = mInflate.inflate(R.layout.header_recyler_view, parent, false);
             return new HeaderHolder(view);
-        } else if (viewType == TYPE_DATE) {
+        } else if (viewType == TYPE_DATE) {//显示日期
             View view = mInflate.inflate(R.layout.date_recyler_view, parent, false);
             return new DateHolder(view);
-        } else if (viewType == TYPE_ITEM) {
+        } else if (viewType == TYPE_ITEM) {//显示具体条目
             View view = mInflate.inflate(R.layout.item_recyler_view, parent, false);
-            return new MyViewHolder(view);
+            return new MyViewHolder(view, mListener);
         }
         throw new RuntimeException("there is no type that match the type " + viewType);
     }
@@ -64,13 +73,20 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder vh, int position) {
         if (vh instanceof HeaderHolder) {
-            if(isViewPagerLoop == false){
+            if (isViewPagerLoop == false) {
                 isViewPagerLoop = true;
                 setViewPager((HeaderHolder) vh);
             }
         } else if (vh instanceof DateHolder) {
+            HomeStoriesInfo homeStoriesInfo = getHomeStoriesListItem(position);
+            DateHolder holder = (DateHolder) vh;
+            if (position != 1) {
+                holder.tv_date.setText(homeStoriesInfo.getDate());
+            } else {
+                holder.tv_date.setText("今日热闻");
+            }
         } else if (vh instanceof MyViewHolder) {
-            HomeStoriesInfo info = homeStoriesInfos.get(position - 2);
+            HomeStoriesInfo info = getHomeStoriesListItem(position);
             MyViewHolder holder = (MyViewHolder) vh;
             holder.tv_title.setText(info.getTitle());
             Picasso.with(BaseApplication.getApplication()).load(info.getImages()).into(holder.iv_title);
@@ -81,7 +97,9 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public int getItemCount() {
-        return homeStoriesInfos.size() + 1;
+        int itemCount = homeStoriesInfos.size() + 1;
+        LogUtils.e("getItemCount = " + itemCount);
+        return itemCount;
     }
 
     @Override
@@ -95,8 +113,14 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
+    //判断是否是日期条目位置
     private boolean isPositionDate(int position) {
-        return position == 1;
+        HomeStoriesInfo homeStoriesInfo = getHomeStoriesListItem(position);
+        if (homeStoriesInfo.isDateTime()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private boolean isPositionHeader(int position) {
@@ -105,7 +129,9 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     //设置viewPager
     private void setViewPager(final HeaderHolder holder) {
-        holder.viewPager.setAdapter(new HomeViewPagerAdapter(homeTopInfos));
+        HomeViewPagerAdapter adapter = new HomeViewPagerAdapter(homeTopInfos);
+        adapter.setOnItemClickListener(mListener);
+        holder.viewPager.setAdapter(adapter);
         holder.indicator.setCircleNumber(homeTopInfos.size());
         holder.viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -127,6 +153,15 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         loopViewPager(holder);
     }
 
+    //获取HomeStoriesList列表的条目，需要减去HeaderView
+    private HomeStoriesInfo getHomeStoriesListItem(int pos) {
+        if (pos > 0) {
+            return homeStoriesInfos.get(pos - 1);
+        } else {
+            throw new RuntimeException("the pos < 0");
+        }
+    }
+
     //让viewpager循环播放
     private void loopViewPager(final HeaderHolder holder) {
         BaseApplication.getHandler().postDelayed(new Runnable() {
@@ -142,19 +177,29 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }, 5000);
     }
 
-    //item view
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    //显示日报条目的Holder
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView iv_title;
         public TextView tv_title;
+        private HomePagerClickListener listener;
 
-        public MyViewHolder(View view) {
+        public MyViewHolder(View view, HomePagerClickListener listener) {
             super(view);
             iv_title = ButterKnife.findById(view, R.id.iv_title);
             tv_title = ButterKnife.findById(view, R.id.tv_title);
+            this.listener = listener;
+            this.itemView.setOnClickListener(this);//必须是itemView才能设置
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (listener != null) {
+                listener.onHomePagerItemClick(false, getPosition() - 1);
+            }
         }
     }
 
-    //header view
+    //显示viewpager的Holder
     public class HeaderHolder extends RecyclerView.ViewHolder {
         public ViewPager viewPager;
         public CircleIndicator indicator;
@@ -166,12 +211,35 @@ public class HomeRecylerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
     }
 
-    //dateHolder view
+    //显示日期的Holder
     public class DateHolder extends RecyclerView.ViewHolder {
         public TextView tv_date;
+
         public DateHolder(View view) {
             super(view);
             tv_date = ButterKnife.findById(view, R.id.tv_date);
         }
+    }
+
+    //加载更多数据
+    public void add(List<HomeStoriesInfo> homeInfo) {
+        LogUtils.e("add!!");
+        if (homeInfo == null) {
+            return;
+        }
+        homeStoriesInfos.addAll(homeInfo);
+        this.notifyDataSetChanged();
+    }
+
+    public String getTitle(int pos) {
+        if (pos >= 0 && pos < homeStoriesInfos.size()) {
+            return homeStoriesInfos.get(pos).getDate();
+        }
+        return "";
+    }
+
+    //设置item listener
+    public void setOnItemClickListener(HomePagerClickListener listener) {
+        this.mListener = listener;
     }
 }

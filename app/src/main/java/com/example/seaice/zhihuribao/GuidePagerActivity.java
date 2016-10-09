@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class MainActivity extends AppCompatActivity {
+public class GuidePagerActivity extends AppCompatActivity {
 
     private GuideProtocol guideProtocol;
     private GuideInfo guideInfo;
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //guide image view
                 Picasso.with(BaseApplication.getApplication()).load(guideInfo.getGuidePic()).into(iv_guide);
-                Animation guideImageZoomAni = AnimationUtils.loadAnimation(MainActivity.this, R.anim.guide_imageview_zoom);
+                Animation guideImageZoomAni = AnimationUtils.loadAnimation(GuidePagerActivity.this, R.anim.guide_imageview_zoom);
                 guideImageZoomAni.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onAnimationEnd(Animation animation) {
                         Intent intent = new Intent();
-                        intent.setClass(MainActivity.this, ContentActivity.class);
-                        MainActivity.this.startActivity(intent);
+                        intent.setClass(GuidePagerActivity.this, HomePagerActivity.class);
+                        GuidePagerActivity.this.startActivity(intent);
                         finish();
                     }
 

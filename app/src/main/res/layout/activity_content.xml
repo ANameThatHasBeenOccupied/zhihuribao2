@@ -23,21 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/light_grey">
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyle_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/light_grey">
-                </android.support.v7.widget.RecyclerView>
+                    android:background="@color/light_grey"></android.support.v7.widget.RecyclerView>
             </RelativeLayout>
         </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
     <!--侧边栏-->
-    <LinearLayout
-        android:id="@+id/drawer_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/white"
-        android:orientation="vertical"></LinearLayout>
+    <include layout="@layout/slide_menu"></include>
 </android.support.v4.widget.DrawerLayout>

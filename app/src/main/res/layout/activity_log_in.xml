@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/login_bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/holo_blue_light">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/abc_ic_ab_back_mtrl_am_alpha"
+            android:clickable="true"
+            android:onClick="clickBtnBack"/>
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:text="@string/login"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:clickable="true"
+            android:onClick="clickBtnLogin"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/splash_logo"
+        android:padding="10dp"/>
+
+    <Button
+        android:layout_marginTop="15dp"
+        android:id="@+id/sina_accout"
+        android:layout_below="@id/iv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@mipmap/account_sina"
+        android:drawablePadding="5dp"
+        android:text="@string/sina_account"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:background="@drawable/login_selector"
+        android:padding="10dp"
+        android:clickable="true"
+        android:onClick="clickBtnLoginBySinaAccout"/>
+
+    <Button
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/sina_accout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@mipmap/account_tencent"
+        android:drawablePadding="5dp"
+        android:text="@string/tecent_account"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/login_selector"
+        android:padding="10dp"
+        android:clickable="true"
+        android:onClick="clickBtnLoginByTencentAccout"/>
+
+</RelativeLayout>

@@ -1,5 +1,9 @@
 package com.example.seaice.zhihuribao.Utils;
 
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -68,6 +72,10 @@ public class HttpUtils {
 
         });
         return null;
+    }
+
+    public static void loadImageFromUrl(String url, ImageView imageView){
+        Picasso.with(BaseApplication.getApplication()).load(url).fit().into(imageView);
     }
 }
 

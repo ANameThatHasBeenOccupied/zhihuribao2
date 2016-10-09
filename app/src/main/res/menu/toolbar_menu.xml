@@ -4,19 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ContentActivity">
     <item
-        android:id="@+id/action_login"
-        android:icon="@mipmap/ic_drawer_am"
-        android:orderInCategory="100"
-        android:title="Login"
+        android:id="@+id/message"
+        android:icon="@mipmap/message"
+        android:title="message"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_settiong"
-        android:orderInCategory="100"
-        android:title="action_settings"
+        android:id="@+id/setting_night_mode"
+        android:title="@string/setting_night_mode"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_night"
-        android:orderInCategory="100"
-        android:title="Night"
+        android:id="@+id/setting_option"
+        android:title="@string/setting_option"
         app:showAsAction="never"></item>
 </menu>

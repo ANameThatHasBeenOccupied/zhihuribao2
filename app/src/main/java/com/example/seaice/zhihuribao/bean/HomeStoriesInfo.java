@@ -10,6 +10,28 @@ public class HomeStoriesInfo {
     private String images;
     private int type;
     private String id;
+    private String title;
+    private String ga_prefix;
+    private boolean isDateTime;//是否是日期条目
+    private String date;
+
+    public boolean isDateTime() {
+        return isDateTime;
+    }
+
+    public void setIsDateTime(boolean dateTime) {
+        isDateTime = dateTime;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public HomeStoriesInfo(){}
 
     public HomeStoriesInfo(String images, int type, String id, String ga_prefix, String title) {
         this.images = images;
@@ -39,7 +61,7 @@ public class HomeStoriesInfo {
         this.title = title;
     }
 
-    private String ga_prefix;
+
 
     public String getImages() {
         return images;
@@ -61,16 +83,17 @@ public class HomeStoriesInfo {
         return title;
     }
 
-    private String title;
 
     @Override
     public String toString() {
         return "HomeStoriesInfo{" +
-                "images=" + images +
+                "images='" + images + '\'' +
                 ", type=" + type +
                 ", id='" + id + '\'' +
-                ", ga_prefix='" + ga_prefix + '\'' +
                 ", title='" + title + '\'' +
+                ", ga_prefix='" + ga_prefix + '\'' +
+                ", isDateTime=" + isDateTime +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

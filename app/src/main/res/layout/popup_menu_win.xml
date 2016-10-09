@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/pop_agree"
+        android:text="@string/pop_agree"
+        style="@style/PopupMenuWinTheme"/>
+
+    <Button
+        android:id="@+id/pop_jubao"
+        android:text="@string/pop_jubao"
+        style="@style/PopupMenuWinTheme"/>
+
+    <Button
+        android:id="@+id/pop_fuzhi"
+        android:text="@string/pop_fuzhi"
+        style="@style/PopupMenuWinTheme"/>
+
+    <Button
+        android:id="@+id/pop_reply"
+        android:text="@string/pop_reply"
+        style="@style/PopupMenuWinTheme"/>
+</LinearLayout>

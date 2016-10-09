@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tv_theme_editor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editor"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        android:padding="5dp"
+        android:layout_marginLeft="5dp"/>
+    
+    <ImageView android:id="@+id/editor1" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor2" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor3" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor4" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor5" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor6" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor7" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor8" style="@style/EditorTheme"/>
+    <ImageView android:id="@+id/editor9" style="@style/EditorTheme"/>
+
+</LinearLayout>

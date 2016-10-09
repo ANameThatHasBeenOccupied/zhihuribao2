@@ -4,4 +4,17 @@
     <string name="drawer_open">open</string>
     <string name="drawer_close">close</string>
     <string name="today_news">今日热闻</string>
+    <string name="write_comments">写点评</string>
+    <string name="pop_agree">赞同</string>
+    <string name="pop_jubao">举报</string>
+    <string name="pop_fuzhi">复制</string>
+    <string name="pop_reply">回复</string>
+    <string name="login">登陆</string>
+    <string name="sina_account">使用新浪微博登陆</string>
+    <string name="tecent_account">使用腾讯微博登陆</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="my_download">离线下载</string>
+    <string name="editor">主编</string>
+    <string name="setting_night_mode">夜间模式</string>
+    <string name="setting_option">设置选项</string>
 </resources>

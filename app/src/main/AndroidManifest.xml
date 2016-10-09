@@ -11,14 +11,16 @@
         android:supportsRtl="true"
         android:name=".Utils.BaseApplication"
         android:theme="@style/AppBaseTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".GuidePagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ContentActivity"></activity>
-
+        <activity android:name=".HomePagerActivity"></activity>
+        <activity android:name=".NewsPagerActivity" android:launchMode="singleInstance"></activity>
+        <activity android:name=".CommentPagerActivity"></activity>
+        <activity android:name=".LoginPagerActivity"></activity>
     </application>
 </manifest>
